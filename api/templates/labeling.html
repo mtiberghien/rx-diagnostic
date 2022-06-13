@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block container %}
+<link href="{{url_for('static', filename='styles/labeling.css')}}" rel="stylesheet">
+<div class="columns">
+  <div class="column">
+    <div class="rx-slider">
+        {% if file_previous %}
+        <img id="previous_img" class="rx-img" src="{{url_for('static', filename='images/' + file_previous)}}">
+        <button id="btn-previous" class="button is-rounded btn btn-previous is-info"><</button>
+        {% endif %}
+        <img id="current_img" class="rx-img" src="{{url_for('static', filename='images/' + file)}}">
+        {% if file_next %}
+        <button id="btn-next" class="button is-rounded btn btn-next is-info">></button>
+        <img id="next_img" class="rx-img" src="{{url_for('static', filename='images/' + file_next)}}">
+        {% endif %}
+    </div>
+  </div>
+  <div class="column">
+    <h1 class="title">Diagnostic IA: {%if prediction.diagnostic == 1 %}<span class="has-text-danger">pneumopathie</span>{%else%}<span class="has-text-success">pas de pneumopathie{%endif%}</span></h1>
+    <h2 class="subtitle">Indice de confiance: <span class="{% if prediction.confidence<90 %}has-text-warning{%elif prediction.confidence>97%}has-text-success{%endif%}">{{"%.2f%%"|format(prediction.confidence)}}</span></h2>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}

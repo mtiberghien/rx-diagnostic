@@ -1,0 +1,79 @@
+{% extends "contained_content.html" %}
+
+{% block content %}
+<h1 class="title">
+  Bienvenue, {{name}} !
+</h1>
+{% if current_user.rank %}
+<h2 class="subtitle"> Vous êtes le <span style="color:{{current_user.rank_color}}">{{current_user.rank}}</span> contributeur
+  {% if current_user.comp_rank %}, à {{current_user.delta_radios}} radios du
+  <span style="color:{{current_user.comp_rank_color}}">{{current_user.comp_rank}}</span>{% endif %}</h2>
+{% endif %}
+<h3>
+  Progression générale ({{progression}} patient{% if progression>1 %}s{%endif%}, {{progression_files}} radio{% if progression_files>1 %}s{%endif%})
+</h3>
+<div class="columns">
+    <div class="column" align="right">
+    0
+  </div>
+  <div class="column is-two-fifths">
+    <progress class="progress is-success" max="{{total}}" value="{{progression}}"></progress>
+  </div>
+  <div class="column" align="left">
+    {{total}} patients
+  </div>
+</div>
+{% if user_progression > 0 %}
+<h3>Votre contribution ({{"%.0f"|format(100*user_progression_files/progression_files)}}% des radios, {{user_progression}} patient{% if user_progression>1 %}s{%endif%}, {{user_progression_files}} radio{% if user_progression_files>1 %}s{%endif%})
+</h3>
+<div class="columns">
+  <div class="column" align="right">
+  0%
+  </div>
+  <div class="column is-quarter">
+    <progress class="progress is-info" max="{{100}}" value="{{100*user_progression_files/progression_files}}"></progress>
+  </div>
+  <div class="column" align="left">
+    100%
+  </div>
+</div>
+{% endif %}
+{% if progression > 0 %}
+<h3>Précision de l'IA: {{"%.2f%%"|format(100*ia_accuracy)}}
+</h3>
+<div class="columns">
+  <div class="column" align="right">
+  0%
+  </div>
+  <div class="column is-one-fifth">
+    <progress class="progress is-info" max="{{100}}" value="{{100*ia_accuracy}}"></progress>
+  </div>
+  <div class="column" align="left">
+    100%
+  </div>
+</div>
+{% endif %}
+{%if has_large_patients or has_small_patients %}
+<form method="POST" action="/patient">
+      <div class="columns is-vcentered" align="center">
+        <div class="column" align="right">
+        {% if has_large_patients %}
+          <button title="Plus de 20 radios" name="patient_type" class="button is-block is-info is-large" value="0">Patient 20+</button>
+        {% else %}
+          <button disabled title="Plus de 20 radios" name="patient_type" class="button is-block is-info is-large"  value="0">Patient 20+</button>
+        {% endif %}
+        </div>
+        <div class="column" align="left">
+          {% if has_small_patients %}
+            <button title="Moins de 20 radios" name="patient_type" class="button is-block is-info is-medium" value="1">Patient 20-</button>
+          {% else %}
+            <button disabled title="Moins de 20 radios" name="patient_type" class="button is-block is-info is-medium" value="1">Patient 20-</button>
+          {% endif %}
+        </div>
+      </div>
+</form>
+{% endif %}
+
+
+
+{% endblock %}
