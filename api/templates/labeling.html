@@ -3,15 +3,17 @@
 <link href="{{url_for('static', filename='styles/labeling.css')}}" rel="stylesheet">
 <div class="columns">
   <div class="column">
+      <button id="btn-grad" class="button is-success">Explicabilité</button>
     <div class="rx-slider">
         {% if file_previous %}
-        <img id="previous_img" class="rx-img" src="{{url_for('static', filename='images/' + file_previous)}}">
+        <img id="previous_img" class="rx-img" src="{{url_for('static', filename='images/' + file_previous)}}"/>
         <button id="btn-previous" class="button is-rounded btn btn-previous is-info"><</button>
         {% endif %}
-        <img id="current_img" class="rx-img" src="{{url_for('static', filename='images/' + file)}}">
+        <img id="current_img" class="rx-img" src="{{url_for('static', filename='images/' + file)}}"/>
+        <img id="grad_img" class="rx-img" src="{{url_for('static', filename='images/' + file|replace('.jpg', '_grad.jpg',1))}}"/>
         {% if file_next %}
         <button id="btn-next" class="button is-rounded btn btn-next is-info">></button>
-        <img id="next_img" class="rx-img" src="{{url_for('static', filename='images/' + file_next)}}">
+        <img id="next_img" class="rx-img" src="{{url_for('static', filename='images/' + file_next)}}"/>
         {% endif %}
     </div>
   </div>
