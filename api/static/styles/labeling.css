@@ -26,13 +26,14 @@ figure{
 }
 
 #next_img {
-    z-index:1;
+    z-index:2;
     position: absolute;
     margin-left:100%;
     transition: margin-left 1s;
 }
 
 #current_img {
+    z-index:1;
     position: absolute;
     margin-left:0%;
     opacity: 1;
@@ -40,12 +41,13 @@ figure{
 }
 
 #grad_img{
+    z-index:0;
     position: absolute;
     opacity: 0;
 }
 
 .btn{
-   z-index:2;
+   z-index:3;
   position:absolute;
   top:25px;
 }
@@ -53,7 +55,7 @@ figure{
 #btn-grad{
     position:absolute;
     top:75px;
-    left:480px;
+    left:450px;
 }
 
 .btn-previous{
