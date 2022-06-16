@@ -20,6 +20,7 @@
   <div class="column">
     <h1 class="title">Diagnostic IA: {%if prediction.diagnostic == 1 %}<span class="has-text-danger">pneumopathie</span>{%else%}<span class="has-text-success">pas de pneumopathie{%endif%}</span></h1>
     <h2 class="subtitle">Indice de confiance: <span class="{% if prediction.confidence<90 %}has-text-warning{%elif prediction.confidence>97%}has-text-success{%endif%}">{{"%.2f%%"|format(prediction.confidence)}}</span></h2>
+      <p>Nombre de votants: {%if prediction.diagnostic == 1 %}{{prediction.voters_count}}{%else%}{{3 - prediction.voters_count}}{%endif%} sur 3</p>
   </div>
 </div>
 

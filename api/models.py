@@ -43,6 +43,7 @@ class Prediction(db.Model):
     image_id = db.Column(db.Integer, primary_key=True)
     diagnostic = db.Column(db.Boolean, nullable=False)
     confidence = db.Column(db.Float, nullable=False)
+    voters_count = db.Column(db.Integer, nullable=False)
     __table_args__ = (db.ForeignKeyConstraint(('patient_id', 'image_id'), ('label.patient_id', 'label.image_id')),)
 
 

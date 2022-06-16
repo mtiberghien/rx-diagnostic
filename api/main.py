@@ -18,6 +18,7 @@ def home():
         return redirect(url_for('main.labeling'))
     update_user_rank(current_user)
     total_patients = db.session.query(Image.patient_id).group_by(Image.patient_id).count()
+    total_files = Image.query.count()
     labelled_patients = db.session.query(Label.patient_id).group_by(Label.patient_id).count()
     labelled_files = Label.query.count()
     user_labelled_files = len(current_user.labels)
@@ -27,7 +28,7 @@ def home():
                            progression_files=labelled_files, user_progression_files=user_labelled_files,
                            progression=labelled_patients, user_progression=user_labelled_patients,
                            has_large_patients=has_large_patients, has_small_patients=has_small_patients,
-                           ia_accuracy=ia_accuracy)
+                           ia_accuracy=ia_accuracy, total_files=total_files)
 
 
 @main.route('/labeling')
